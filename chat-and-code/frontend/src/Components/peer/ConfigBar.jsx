@@ -1,39 +1,39 @@
+import React, { Component } from "react";
+import { Dropdown } from "semantic-ui-react";
+import "../../css/ConfigBar.css";
+import 'semantic-ui-css/semantic.min.css';
 
-import React from 'react';
-import { Dropdown, Button } from 'semantic-ui-react';
-import "../../css/ConfigBar.css"; // Import your CSS file
-
-class ConfigBar extends React.Component {
+class ConfigBar extends Component {
   render() {
-    const { mode, status, handleOnChange, languages, fontSizes, themes, handleRunClick } = this.props;
-
     return (
       <div className="config-bar">
         <Dropdown
           className="dropdown"
-          placeholder="Select Language"
+          placeholder="Theme"
           selection
-          options={languages}
-          onChange={(e, data) => handleOnChange(e, data, 'language')}
-          defaultValue={this.props.mode}
-        />
-        <Dropdown
-          className="dropdown"
-          placeholder="Select Font Size"
-          selection
-          options={fontSizes}
-          onChange={(e, data) => handleOnChange(e, data, 'fontSize')}
-          defaultValue={this.props.fontSizes[4].value}
-        />
-        <Dropdown
-          className="dropdown"
-          placeholder="Select Theme"
-          selection
-          options={themes}
-          onChange={(e, data) => handleOnChange(e, data, 'theme')}
+          options={this.props.themes}
+          onChange={(e, data) => this.props.handleOnChange(e, data)}
           defaultValue={this.props.themes[8].value}
         />
-        <Button className="button" onClick={handleRunClick}>Run</Button>
+        <Dropdown
+          className="dropdown"
+          placeholder="Language"
+          selection
+          options={this.props.languages}
+          onChange={(e, data) => this.props.handleOnChange(e, data)}
+          value={this.props.mode}
+        />
+        <Dropdown
+          className="dropdown"
+          placeholder="Font Size"
+          selection
+          options={this.props.fontSizes}
+          onChange={(e, data) => this.props.handleOnChange(e, data)}
+          defaultValue={this.props.fontSizes[4].value}
+        />
+        <button className="run" onClick={() => this.props.handleRunClick()}>
+          <div dangerouslySetInnerHTML={{ __html: this.props.status }} />
+        </button>
       </div>
     );
   }
